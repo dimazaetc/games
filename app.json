@@ -4,7 +4,7 @@
     "slug": "games-for-friends",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
     "platforms": [
       "ios"
@@ -23,7 +23,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.games-for-friends",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.1"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -8,68 +8,71 @@ import {
   View,
 } from "react-native";
 import StyledText from "./atoms/StyledText";
+import { ErrorHandler } from "./atoms/Error";
 
 const SelectGameScreen = ({ navigation }) => {
   const { fontScale } = useWindowDimensions();
   const styles = makeStyles(fontScale);
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("../assets/BG.png")}
-        resizeMode="cover"
-        style={styles.image}
-      >
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "space-around",
-            flex: 1,
-          }}
+    <ErrorHandler title={"SelectGameScreen"}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../assets/BG.png")}
+          resizeMode="cover"
+          style={styles.image}
         >
-          <View style={styles.titleWrapper}>
-            <Text style={styles.title}>Виберіть гру</Text>
-          </View>
-          <View style={styles.settingsBlock}>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <TouchableOpacity
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "space-around",
+              flex: 1,
+            }}
+          >
+            <View style={styles.titleWrapper}>
+              <Text style={styles.title}>Виберіть гру</Text>
+            </View>
+            <View style={styles.settingsBlock}>
+              <View
                 style={{
-                  width: "40%",
+                  flexDirection: "row",
                   justifyContent: "space-between",
                   alignItems: "center",
                 }}
-                onPress={() => navigation.navigate("SettingsScreen")}
               >
-                <Image
-                  style={{ width: 100, height: 100, marginBottom: 20 }}
-                  source={require("./alias.png")}
-                />
-                <StyledText>Аліас</StyledText>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  width: "40%",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-                onPress={() => navigation.navigate("SpySettingsScreen")}
-              >
-                <Image
-                  style={{ width: 100, height: 100, marginBottom: 20 }}
-                  source={require("./spy.png")}
-                />
-                <StyledText>Шпигун</StyledText>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    width: "40%",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                  onPress={() => navigation.navigate("SettingsScreen")}
+                >
+                  <Image
+                    style={{ width: 100, height: 100, marginBottom: 20 }}
+                    source={require("./alias.png")}
+                  />
+                  <StyledText>Аліас</StyledText>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    width: "40%",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                  onPress={() => navigation.navigate("SpySettingsScreen")}
+                >
+                  <Image
+                    style={{ width: 100, height: 100, marginBottom: 20 }}
+                    source={require("./spy.png")}
+                  />
+                  <StyledText>Шпигун</StyledText>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </ImageBackground>
-    </View>
+        </ImageBackground>
+      </View>
+    </ErrorHandler>
   );
 };
 

@@ -11,6 +11,7 @@ import SpySettingsScreen from "./src/games/Spy/screens/SpySettingsScreen/SpySett
 import SpyGameScreen from "./src/games/Spy/screens/SpyGameScreen/SpyGameScreen";
 import GameScreen from "./src/games/Alias/screens/gameScreen/GameScreen";
 import ResultScreen from "./src/games/Alias/screens/resultScreen/ResultScreen";
+import { ErrorHandler } from "./src/atoms/Error";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,22 +29,27 @@ export default function App() {
   return (
     <NavigationContainer theme={navTheme}>
       <Provider store={store}>
-        <Stack.Navigator
-          tabBar={() => null}
-          screenOptions={{ headerShown: false }}
-        >
-          <Stack.Screen name="SelectGameScreen" component={SelectGameScreen} />
-          <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
-          <Stack.Screen
-            name="SpySettingsScreen"
-            component={SpySettingsScreen}
-          />
+        <ErrorHandler title={"app js"}>
+          <Stack.Navigator
+            tabBar={() => null}
+            screenOptions={{ headerShown: false }}
+          >
+            <Stack.Screen
+              name="SelectGameScreen"
+              component={SelectGameScreen}
+            />
+            <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+            <Stack.Screen
+              name="SpySettingsScreen"
+              component={SpySettingsScreen}
+            />
 
-          <Stack.Screen name="SpyGameScreen" component={SpyGameScreen} />
-          <Stack.Screen name="StartScreen" component={StartScreen} />
-          <Stack.Screen name="GameScreen" component={GameScreen} />
-          <Stack.Screen name="ResultScreen" component={ResultScreen} />
-        </Stack.Navigator>
+            <Stack.Screen name="SpyGameScreen" component={SpyGameScreen} />
+            <Stack.Screen name="StartScreen" component={StartScreen} />
+            <Stack.Screen name="GameScreen" component={GameScreen} />
+            <Stack.Screen name="ResultScreen" component={ResultScreen} />
+          </Stack.Navigator>
+        </ErrorHandler>
       </Provider>
     </NavigationContainer>
   );

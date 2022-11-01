@@ -13,6 +13,7 @@ import Slider from "@react-native-community/slider";
 import StyledText from "../../../../atoms/StyledText";
 import { Audio } from "expo-av";
 import ScreenWrapper from "../../../../atoms/ScreenWrapper";
+import { ErrorHandler } from "../../../../atoms/Error";
 
 function getWord(arr) {
   const rand = Math.floor(Math.random() * arr.length);
@@ -118,97 +119,99 @@ const GameScreen = ({ navigation, route }) => {
   }, [trueWord]);
 
   return (
-    <ScreenWrapper navigation={navigation}>
-      <View style={styles.image}>
-        <View style={styles.settingsBlock}>
-          <View
-            style={{
-              backgroundColor: "#895B3B",
-              borderRadius: 20,
-              padding: 15,
-              width: "100%",
-            }}
-          >
-            <StyledText>Команда: {team}</StyledText>
-            <StyledText style={{ marginTop: 10 }}>
-              Кількість слів: {wordsCount}
-            </StyledText>
-          </View>
-        </View>
-        <>
-          {!timerActive && (
+    <ErrorHandler title={"Game Screen Alias"}>
+      <ScreenWrapper navigation={navigation}>
+        <View style={styles.image}>
+          <View style={styles.settingsBlock}>
             <View
               style={{
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: 20,
+                backgroundColor: "#895B3B",
+                borderRadius: 20,
+                padding: 15,
+                width: "100%",
               }}
             >
+              <StyledText>Команда: {team}</StyledText>
+              <StyledText style={{ marginTop: 10 }}>
+                Кількість слів: {wordsCount}
+              </StyledText>
+            </View>
+          </View>
+          <>
+            {!timerActive && (
               <View
                 style={{
-                  flexDirection: "row",
                   justifyContent: "center",
                   alignItems: "center",
                   marginTop: 20,
                 }}
               >
-                <StyledText>Почати</StyledText>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: 20,
+                  }}
+                >
+                  <StyledText>Почати</StyledText>
+                </View>
+                <Slider
+                  style={{ width: 100, height: 40 }}
+                  minimumValue={0}
+                  maximumValue={1}
+                  value={nextStep}
+                  thumbTintColor={"green"}
+                  maximumTrackTintColor="#FEF1E0"
+                  minimumTrackTintColor="#628469"
+                  step={1}
+                  onSlidingComplete={(value) => {
+                    setNextStep(value);
+                  }}
+                />
               </View>
-              <Slider
-                style={{ width: 100, height: 40 }}
-                minimumValue={0}
-                maximumValue={1}
-                value={nextStep}
-                thumbTintColor={"green"}
-                maximumTrackTintColor="#FEF1E0"
-                minimumTrackTintColor="#628469"
-                step={1}
-                onSlidingComplete={(value) => {
-                  setNextStep(value);
-                }}
-              />
-            </View>
-          )}
-          {timerActive && (
-            <View>
-              <View style={styles.languageWrapper}>
-                <StyledText style={{ fontSize: 22 }}>-</StyledText>
-                <StyledText style={{ fontSize: 22 }}>
-                  {currentWord.toUpperCase()}
-                </StyledText>
-                <StyledText style={{ fontSize: 22 }}>+</StyledText>
+            )}
+            {timerActive && (
+              <View>
+                <View style={styles.languageWrapper}>
+                  <StyledText style={{ fontSize: 22 }}>-</StyledText>
+                  <StyledText style={{ fontSize: 22 }}>
+                    {currentWord.toUpperCase()}
+                  </StyledText>
+                  <StyledText style={{ fontSize: 22 }}>+</StyledText>
+                </View>
+                <Slider
+                  style={{ width: "100%", height: 80 }}
+                  minimumValue={0}
+                  maximumValue={1}
+                  value={trueWord}
+                  minimumTrackTintColor="red"
+                  maximumTrackTintColor="green"
+                  step={0.5}
+                  onSlidingComplete={(value) => {
+                    setTrueWord(value);
+                  }}
+                />
               </View>
-              <Slider
-                style={{ width: "100%", height: 80 }}
-                minimumValue={0}
-                maximumValue={1}
-                value={trueWord}
-                minimumTrackTintColor="red"
-                maximumTrackTintColor="green"
-                step={0.5}
-                onSlidingComplete={(value) => {
-                  setTrueWord(value);
-                }}
-              />
-            </View>
-          )}
-        </>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            title={"Пауза"}
-            color="#FEF1E0"
-            onPress={() => setTimerActive(!timerActive)}
-          />
-          <StyledText>{seconds}</StyledText>
+            )}
+          </>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button
+              title={"Пауза"}
+              color="#FEF1E0"
+              onPress={() => setTimerActive(!timerActive)}
+            />
+            <StyledText>{seconds}</StyledText>
+          </View>
         </View>
-      </View>
-    </ScreenWrapper>
+      </ScreenWrapper>
+    </ErrorHandler>
   );
 };
 

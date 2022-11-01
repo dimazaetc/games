@@ -13,14 +13,15 @@
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.0",
     "expo": "~46.0.13",
+    "expo-av": "~12.0.4",
     "expo-font": "^10.2.1",
     "expo-status-bar": "~1.4.0",
+    "expo-updates": "~0.14.6",
     "react": "18.0.0",
+    "react-error-boundary": "^3.1.4",
     "react-native": "0.69.6",
     "react-redux": "^8.0.4",
-    "redux": "^4.2.0",
-    "expo-av": "~12.0.4",
-    "expo-updates": "~0.14.6"
+    "redux": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

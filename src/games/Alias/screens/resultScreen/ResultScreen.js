@@ -11,6 +11,7 @@ import { updateResult } from "../../../../redux/actions/currentGame";
 import StyledText from "../../../../atoms/StyledText";
 import Slider from "@react-native-community/slider";
 import { useEffect, useState } from "react";
+import { ErrorHandler } from "../../../../atoms/Error";
 
 const ResultScreen = ({ route, navigation }) => {
   const game = useSelector((state) => state.currentGame.currentGame);
@@ -53,72 +54,74 @@ const ResultScreen = ({ route, navigation }) => {
     }
   }, [nextStep]);
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("../../../../../assets/GreenBG.png")}
-        resizeMode="cover"
-        style={styles.image}
-      >
-        <StyledText
-          style={{ fontSize: 32, marginBottom: 10, textAlign: "center" }}
+    <ErrorHandler title={"Result screen alias"}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../../../../../assets/GreenBG.png")}
+          resizeMode="cover"
+          style={styles.image}
         >
-          {wordsCount}
-        </StyledText>
-        <ScrollView>
-          <View>
+          <StyledText
+            style={{ fontSize: 32, marginBottom: 10, textAlign: "center" }}
+          >
+            {wordsCount}
+          </StyledText>
+          <ScrollView>
             <View>
-              <StyledText style={{ fontSize: 20, marginBottom: 10 }}>
-                Кількість відгаданих слів: {words?.length}
-              </StyledText>
               <View>
-                {words.map((item, index) => (
-                  <View key={index}>
-                    <StyledText>{item}</StyledText>
-                  </View>
-                ))}
+                <StyledText style={{ fontSize: 20, marginBottom: 10 }}>
+                  Кількість відгаданих слів: {words?.length}
+                </StyledText>
+                <View>
+                  {words.map((item, index) => (
+                    <View key={index}>
+                      <StyledText>{item}</StyledText>
+                    </View>
+                  ))}
+                </View>
+              </View>
+              <View style={{ marginTop: 20 }}>
+                <StyledText style={{ fontSize: 20, marginBottom: 10 }}>
+                  Кількість не відгаданих слів: {falseWords.length}
+                </StyledText>
+                <View>
+                  {falseWords.map((item, index) => (
+                    <View key={index}>
+                      <StyledText>{item}</StyledText>
+                    </View>
+                  ))}
+                </View>
               </View>
             </View>
-            <View style={{ marginTop: 20 }}>
-              <StyledText style={{ fontSize: 20, marginBottom: 10 }}>
-                Кількість не відгаданих слів: {falseWords.length}
-              </StyledText>
-              <View>
-                {falseWords.map((item, index) => (
-                  <View key={index}>
-                    <StyledText>{item}</StyledText>
-                  </View>
-                ))}
-              </View>
-            </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
 
-        <View
-          style={{
-            // justifyContent: "flex-start",
-            alignItems: "center",
-            marginTop: 20,
-          }}
-        >
-          <View>
-            <StyledText>Продовжити</StyledText>
-          </View>
-          <Slider
-            style={{ width: 100, height: 40 }}
-            minimumValue={0}
-            maximumValue={1}
-            thumbTintColor={"#442421"}
-            maximumTrackTintColor="#FEF1E0"
-            minimumTrackTintColor="#628469"
-            value={nextStep}
-            step={1}
-            onSlidingComplete={(value) => {
-              setNextStep(value);
+          <View
+            style={{
+              // justifyContent: "flex-start",
+              alignItems: "center",
+              marginTop: 20,
             }}
-          />
-        </View>
-      </ImageBackground>
-    </View>
+          >
+            <View>
+              <StyledText>Продовжити</StyledText>
+            </View>
+            <Slider
+              style={{ width: 100, height: 40 }}
+              minimumValue={0}
+              maximumValue={1}
+              thumbTintColor={"#442421"}
+              maximumTrackTintColor="#FEF1E0"
+              minimumTrackTintColor="#628469"
+              value={nextStep}
+              step={1}
+              onSlidingComplete={(value) => {
+                setNextStep(value);
+              }}
+            />
+          </View>
+        </ImageBackground>
+      </View>
+    </ErrorHandler>
   );
 };
 

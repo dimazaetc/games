@@ -6,6 +6,7 @@ import { createGame } from "../../../../redux/actions/currentGame";
 import Slider from "@react-native-community/slider";
 import StyledText from "../../../../atoms/StyledText";
 import ScreenWrapper from "../../../../atoms/ScreenWrapper";
+import { ErrorHandler } from "../../../../atoms/Error";
 
 const Item = ({ item }) => {
   return (
@@ -75,88 +76,94 @@ const StartScreen = ({ navigation }) => {
     }
   }, [nextStep]);
   return (
-    <>
-      {winner ? (
-        <ScreenWrapper navigation={navigation}>
-          <View
-            style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
-          >
-            <StyledText>Вітаю {winner[0].name}</StyledText>
-          </View>
-        </ScreenWrapper>
-      ) : (
-        <ScreenWrapper navigation={navigation}>
-          <View style={styles.image}>
-            <View style={styles.settingsBlock}>
+    <ErrorHandler title={"Start screen alias"}>
+      <>
+        {winner ? (
+          <ScreenWrapper navigation={navigation}>
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
+              }}
+            >
+              <StyledText>Вітаю {winner[0].name}</StyledText>
+            </View>
+          </ScreenWrapper>
+        ) : (
+          <ScreenWrapper navigation={navigation}>
+            <View style={styles.image}>
+              <View style={styles.settingsBlock}>
+                <View
+                  style={{
+                    backgroundColor: "#895B3B",
+                    borderRadius: 20,
+                    padding: 15,
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <StyledText>Команди</StyledText>
+                    <StyledText>{settings.count}</StyledText>
+                  </View>
+                  <View style={{ marginTop: 20, width: "100%" }}>
+                    {teams?.teams?.map((item) => (
+                      <Item key={item.id} item={item} />
+                    ))}
+                  </View>
+                </View>
+              </View>
               <View
                 style={{
-                  backgroundColor: "#895B3B",
-                  borderRadius: 20,
-                  padding: 15,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <StyledText>
+                  Раунд: {teams.round} / Команда: {getTeam()}
+                </StyledText>
+              </View>
+
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 <View
                   style={{
                     flexDirection: "row",
-                    justifyContent: "space-between",
+                    justifyContent: "center",
                     alignItems: "center",
+                    marginTop: 20,
                   }}
                 >
-                  <StyledText>Команди</StyledText>
-                  <StyledText>{settings.count}</StyledText>
+                  <StyledText>Почати</StyledText>
                 </View>
-                <View style={{ marginTop: 20, width: "100%" }}>
-                  {teams?.teams?.map((item) => (
-                    <Item key={item.id} item={item} />
-                  ))}
-                </View>
+                <Slider
+                  style={{ width: 100, height: 40 }}
+                  minimumValue={0}
+                  maximumValue={1}
+                  value={nextStep}
+                  thumbTintColor={"#442421"}
+                  maximumTrackTintColor="#FEF1E0"
+                  minimumTrackTintColor="#628469"
+                  step={1}
+                  onSlidingComplete={(value) => {
+                    setNextStep(value);
+                  }}
+                />
               </View>
             </View>
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <StyledText>
-                Раунд: {teams.round} / Команда: {getTeam()}
-              </StyledText>
-            </View>
-
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginTop: 20,
-                }}
-              >
-                <StyledText>Почати</StyledText>
-              </View>
-              <Slider
-                style={{ width: 100, height: 40 }}
-                minimumValue={0}
-                maximumValue={1}
-                value={nextStep}
-                thumbTintColor={"#442421"}
-                maximumTrackTintColor="#FEF1E0"
-                minimumTrackTintColor="#628469"
-                step={1}
-                onSlidingComplete={(value) => {
-                  setNextStep(value);
-                }}
-              />
-            </View>
-          </View>
-        </ScreenWrapper>
-      )}
-    </>
+          </ScreenWrapper>
+        )}
+      </>
+    </ErrorHandler>
   );
 };
 

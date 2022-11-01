@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import StyledText from "../../../../atoms/StyledText";
 import { PLACES } from "../../consts/places";
 import ScreenWrapper from "../../../../atoms/ScreenWrapper";
+import { ErrorHandler } from "../../../../atoms/Error";
 
 const SpyGameScreen = ({ navigation, route }) => {
   const { person, time, spy } = route.params;
@@ -62,78 +63,80 @@ const SpyGameScreen = ({ navigation, route }) => {
     }
   }, [order]);
   return (
-    <ScreenWrapper navigation={navigation}>
-      <View style={styles.settingsBlock}>
-        <View
-          style={{
-            backgroundColor: "#895B3B",
-            borderRadius: 20,
-            padding: 15,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {!(order === persons?.length) && (
-            <TouchableOpacity onPress={() => setShowCard(!showCard)}>
-              {showCard ? (
-                <View style={{ alignItems: "center" }}>
-                  {currentCard === "Шпигун" ? (
-                    <Image source={require("../../spy.png")} />
-                  ) : (
-                    <Image source={require("../../ep_place.png")} />
-                  )}
-                  <StyledText style={{ marginTop: 20 }}>
-                    {currentCard}
-                  </StyledText>
-                </View>
-              ) : (
-                <TouchableOpacity onPress={() => setShowCard(!showCard)}>
+    <ErrorHandler title={"Spy game screen"}>
+      <ScreenWrapper navigation={navigation}>
+        <View style={styles.settingsBlock}>
+          <View
+            style={{
+              backgroundColor: "#895B3B",
+              borderRadius: 20,
+              padding: 15,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {!(order === persons?.length) && (
+              <TouchableOpacity onPress={() => setShowCard(!showCard)}>
+                {showCard ? (
+                  <View style={{ alignItems: "center" }}>
+                    {currentCard === "Шпигун" ? (
+                      <Image source={require("../../spy.png")} />
+                    ) : (
+                      <Image source={require("../../ep_place.png")} />
+                    )}
+                    <StyledText style={{ marginTop: 20 }}>
+                      {currentCard}
+                    </StyledText>
+                  </View>
+                ) : (
+                  <TouchableOpacity onPress={() => setShowCard(!showCard)}>
+                    <View
+                      style={{
+                        width: 225,
+                        height: 225,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "row",
+                      }}
+                    >
+                      <StyledText>Тисніть щоб побпчити картку</StyledText>
+                    </View>
+                  </TouchableOpacity>
+                )}
+              </TouchableOpacity>
+            )}
+            {seconds === 0 ? (
+              <View>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <StyledText>Ще разок</StyledText>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <>
+                {order === persons?.length && (
                   <View
                     style={{
-                      width: 225,
-                      height: 225,
-                      justifyContent: "center",
-                      alignItems: "center",
                       flexDirection: "row",
+                      alignItems: "center",
                     }}
                   >
-                    <StyledText>Тисніть щоб побпчити картку</StyledText>
+                    <StyledText
+                      style={{
+                        fontSize: 40,
+                        fontFamily: "Comfortaa-Bold",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {seconds}
+                    </StyledText>
                   </View>
-                </TouchableOpacity>
-              )}
-            </TouchableOpacity>
-          )}
-          {seconds === 0 ? (
-            <View>
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <StyledText>Ще разок</StyledText>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <>
-              {order === persons?.length && (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <StyledText
-                    style={{
-                      fontSize: 40,
-                      fontFamily: "Comfortaa-Bold",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {seconds}
-                  </StyledText>
-                </View>
-              )}
-            </>
-          )}
+                )}
+              </>
+            )}
+          </View>
         </View>
-      </View>
-    </ScreenWrapper>
+      </ScreenWrapper>
+    </ErrorHandler>
   );
 };
 
