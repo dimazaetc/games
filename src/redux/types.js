@@ -1,0 +1,3 @@
+export const GET_GAME_SETTINGS = "GET_GAME_SETTINGS";
+export const CREATE_GAME = "CREATE_GAME";
+export const UPDATE_RESULT = "UPDATE_RESULT";

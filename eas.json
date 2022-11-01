@@ -1,0 +1,28 @@
+{
+  "cli": {
+    "version": ">= 2.1.0",
+    "requireCommit": true,
+    "promptToConfigurePushNotifications": false
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true,
+        "enterpriseProvisioning": "universal"
+      }
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {}
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId" : "dimodi4@i.ua"
+      }
+    }
+  }
+}
